@@ -1,5 +1,3 @@
-import javax.xml.ws.http.HTTPException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,12 +30,12 @@ public class TesteInicial{
 		
 		try{
 			ec2.describeImages();
-		}catch(HTTPException e){
-			AmazonServiceException exp = new AmazonServiceException("msg",e);
-			statusCodeReturn = exp.getStatusCode();
+		}catch(AmazonServiceException e){
+//			AmazonServiceException exp = new AmazonServiceException("msg",e);
+			statusCodeReturn = e.getStatusCode();
 		}
 		
 		Assert.assertEquals("Compativel", true,
-				(statusCodeReturn >= 200 && statusCodeReturn <= 206));
+				(statusCodeReturn == 200));
 	}
 }
