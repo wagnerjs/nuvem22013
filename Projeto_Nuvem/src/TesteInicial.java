@@ -1,7 +1,10 @@
+import javax.xml.ws.http.HTTPException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
@@ -25,12 +28,15 @@ public class TesteInicial{
 	
 	@Test
 	public void testDescribeImages() {
-		ec2.describeInstanceStatus();
-
-		System.out.println(ec2.describeInstances());
+		int statusCodeReturn = 200;
 		
-		int statusCodeReturn = 0;//TestCaseLogger.getstatusCode("DescribeImages",
-//				monitorFlag);
+		try{
+			ec2.describeImages();
+		}catch(HTTPException e){
+			AmazonServiceException exp = new AmazonServiceException("msg",e);
+			statusCodeReturn = exp.getStatusCode();
+		}
+		
 		Assert.assertEquals("Compativel", true,
 				(statusCodeReturn >= 200 && statusCodeReturn <= 206));
 	}
