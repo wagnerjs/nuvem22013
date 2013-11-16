@@ -1,4 +1,4 @@
-package testsInstance;
+package testsImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +14,14 @@ import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
-import com.amazonaws.services.ec2.model.StartInstancesRequest;
 
 /**
- * Função para Iniciar todas as instâncias, instâncias devem estar paradas
+ * Descreve todas as imagens
  * @author itallorossi
  *
  */
 
-public class StartInstances {
+public class DescribeImages {
 	public static AmazonEC2 ec2;
 	public static String imgId;
 	public static String instanceId;
@@ -49,22 +48,26 @@ public class StartInstances {
 		List<Reservation> reservations = describeInstancesRequest.getReservations();
         Reservation reserv = describeInstancesRequest.getReservations().get(0);
         Instance instance = reserv.getInstances().get(0);
-
+        
         for(Reservation reservation : reservations){
-        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());	
         }
+        
+        for (int j = 0; j < instancesIds.size(); j++) {
+			System.out.println(instancesIds.get(j));
+		}
         
         instanceId = instance.getInstanceId();
         imgId = instance.getImageId();
 	}
 	
 	@Test
-	public void testStartInstances(){
+	public void testDescribeImages() { 
+		
 		int statusCodeReturn = 200;
 		
 		try{
-			StartInstancesRequest startInstReq = new StartInstancesRequest(instancesIds);
-			ec2.startInstances(startInstReq);
+			ec2.describeImages();
 		}catch(AmazonServiceException ase){
 			System.out.println("Caught Exception: " + ase.getMessage());
             System.out.println("Reponse Status Code: " + ase.getStatusCode());
@@ -73,6 +76,7 @@ public class StartInstances {
 			statusCodeReturn = ase.getStatusCode();
 		}
 		
-		Assert.assertEquals("Compativel", true,(statusCodeReturn == 200));	
+		Assert.assertEquals("Compativel", true,
+				(statusCodeReturn == 200));
 	}
 }

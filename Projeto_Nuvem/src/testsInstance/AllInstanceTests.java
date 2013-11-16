@@ -21,6 +21,11 @@ import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.UnmonitorInstancesRequest;
 
+/**
+ * 
+ * @author itallorossi
+ *
+ */
 
 public class AllInstanceTests{
 	public static AmazonEC2 ec2;

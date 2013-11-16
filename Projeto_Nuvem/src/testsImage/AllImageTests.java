@@ -16,6 +16,8 @@ public class AllImageTests{
 	public static String imgId;
 	public static String instanceId;
 	public List<String> instancesIds = new ArrayList<String>();
+	public static String amiId;
+	public static String imgLocation;
 	
 	@Before
 	public void init() {
@@ -43,56 +45,35 @@ public class AllImageTests{
         	instancesIds.add(reservation.getInstances().get(0).getInstanceId());	
         }
         
-        for (int j = 0; j < instancesIds.size(); j++) {
-			System.out.println(instancesIds.get(j));
-		}
-        
         instanceId = instance.getInstanceId();
         imgId = instance.getImageId();
+        
+//        DescribeImagesResult descImg = ec2.describeImages();
+//        List<Image> imgs = descImg.getImages();
+//        
+//        for(Image img : imgs){
+//        	imgLocation = img.getImageLocation();
+//        }
+//        
+//        System.out.println(imgLocation);
 	}
 	
 	/**
 	 * Gerência de Imagens:
-	 * CreateImage
-	 * DeregisterImage
-	 * ModifyImageAttribute
-	 * RegisterImage
-	 * ResetImageAttribute
-	 * DescribeImageAttribute
-	 * DescribeImages
+	 * CreateImage - OK
+	 * DeregisterImage - OK
+	 * ModifyImageAttribute - Não implementado
+	 * ResetImageAttribute - Não implementado
+	 * DescribeImageAttribute - OK
+	 * DescribeImages - OK
 	 */
 //	@Test
 //	public void testCreateImage(){
 //		int statusCode = 200;
 //		
 //		try{
-//			CreateImageRequest imgReq = new CreateImageRequest("i-1ec0b12a","ami-bf1d8a8f");
-//			ModifyImageAttributeRequest modImgAtrtReq = new ModifyImageAttributeRequest(imgId,);
-//			ec2.modifyImageAttribute(modImgAtrtReq);
-//			ec2.createImage(imgReq);
-//			
-//		}catch(AmazonServiceException ase){
-//			System.out.println("Caught Exception: " + ase.getMessage());
-//            System.out.println("Reponse Status Code: " + ase.getStatusCode());
-//            System.out.println("Error Code: " + ase.getErrorCode());
-//            System.out.println("Request ID: " + ase.getRequestId());
-//			statusCode = ase.getStatusCode();
-//		}
-//		
-//		Assert.assertEquals("Compativel", true,
-//				(statusCode == 200));
-//	}
-	
-//	@Test
-//	public void testRegisterImage(){
-//		int statusCode = 200;
-//		
-//		try{
-//			RegisterImageRequest regImgReq = new RegisterImageRequest();
-////			regImgReq.getImageLocation();
-//			
-//			ec2.registerImage(regImgReq);
-//			
+//			CreateImageRequest imgReq = new CreateImageRequest(instanceId,imgId);
+//			amiId = ec2.createImage(imgReq).getImageId();
 //		}catch(AmazonServiceException ase){
 //			System.out.println("Caught Exception: " + ase.getMessage());
 //            System.out.println("Reponse Status Code: " + ase.getStatusCode());
@@ -110,8 +91,8 @@ public class AllImageTests{
 //		int statusCode = 200;
 //		
 //		try{
-//			DeregisterImageRequest derImgReq = new DeregisterImageRequest(imgId);
-//			
+//			DeregisterImageRequest derImgReq = new DeregisterImageRequest("ami-aa56cd9a");
+////			DeregisterImageRequest derImgReq = new DeregisterImageRequest(aimId);
 //			ec2.deregisterImage(derImgReq);
 //			
 //		}catch(AmazonServiceException ase){
@@ -127,14 +108,14 @@ public class AllImageTests{
 //	}
 	
 //	@Test
-//	public void testDeregisterImage(){
+//	public void testModifyImageAttribute(){
 //		int statusCode = 200;
 //		
 //		try{
-//			DeregisterImageRequest imgReq = new DeregisterImageRequest(imgId);
-//			
-//			ec2.deregisterImage(imgReq);
-//			
+//			ModifyImageAttributeRequest modImgReq = new ModifyImageAttributeRequest(amiId,"launchPermission");
+//			LaunchPermissionModifications launch = modImgReq.getLaunchPermission();
+//			modImgReq.setLaunchPermission(launch);
+//			ec2.modifyImageAttribute(modImgReq);
 //		}catch(AmazonServiceException ase){
 //			System.out.println("Caught Exception: " + ase.getMessage());
 //            System.out.println("Reponse Status Code: " + ase.getStatusCode());
@@ -148,14 +129,51 @@ public class AllImageTests{
 //	}
 	
 //	@Test
+//	public void testResetImageAttribute(){
+//		int statusCode = 200;
+//		
+//		try{
+//			ResetImageAttributeRequest restImgAttrReq = new ResetImageAttributeRequest(amiId,"launchPermission");
+//			ec2.resetImageAttribute(restImgAttrReq);
+//		}catch(AmazonServiceException ase){
+//			System.out.println("Caught Exception: " + ase.getMessage());
+//            System.out.println("Reponse Status Code: " + ase.getStatusCode());
+//            System.out.println("Error Code: " + ase.getErrorCode());
+//            System.out.println("Request ID: " + ase.getRequestId());
+//			statusCode = ase.getStatusCode();
+//		}
+//		
+//		Assert.assertEquals("Compativel", true,
+//				(statusCode == 200));
+//	}
+	
+//	@Test
+//	public void testDescribeImageAttribute() { 
+//		
+//		int statusCodeReturn = 200;
+//		
+//		try{
+//			DescribeImageAttributeRequest descImgAttrReq = new DescribeImageAttributeRequest(amiId,"kernel");
+//			System.out.println(ec2.describeImageAttribute(descImgAttrReq).getImageAttribute());
+//		}catch(AmazonServiceException ase){
+//			System.out.println("Caught Exception: " + ase.getMessage());
+//            System.out.println("Reponse Status Code: " + ase.getStatusCode());
+//            System.out.println("Error Code: " + ase.getErrorCode());
+//            System.out.println("Request ID: " + ase.getRequestId());
+//			statusCodeReturn = ase.getStatusCode();
+//		}
+//		
+//		Assert.assertEquals("Compativel", true,
+//				(statusCodeReturn == 200));
+//	}
+
+//	@Test
 //	public void testDescribeImages() { 
 //		
 //		int statusCodeReturn = 200;
 //		
 //		try{
-//			BundleInstanceRequest req = new BundleInstanceRequest("i-1ec0b12a",null);
-//			
-//			ec2.bundleInstance(req);
+//			ec2.describeImages();
 //		}catch(AmazonServiceException ase){
 //			System.out.println("Caught Exception: " + ase.getMessage());
 //            System.out.println("Reponse Status Code: " + ase.getStatusCode());

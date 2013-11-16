@@ -1,4 +1,4 @@
-package testsInstance;
+package testsImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +11,24 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.CreateImageRequest;
+import com.amazonaws.services.ec2.model.DeregisterImageRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
-import com.amazonaws.services.ec2.model.StartInstancesRequest;
 
 /**
- * Função para Iniciar todas as instâncias, instâncias devem estar paradas
+ * Criar e remove registro de uma Imagem
  * @author itallorossi
  *
  */
 
-public class StartInstances {
+public class DeregisterImage {
 	public static AmazonEC2 ec2;
 	public static String imgId;
 	public static String instanceId;
 	public List<String> instancesIds = new ArrayList<String>();
+	public static String amiId;
 	
 	@Before
 	public void init() {
@@ -49,9 +51,9 @@ public class StartInstances {
 		List<Reservation> reservations = describeInstancesRequest.getReservations();
         Reservation reserv = describeInstancesRequest.getReservations().get(0);
         Instance instance = reserv.getInstances().get(0);
-
+        
         for(Reservation reservation : reservations){
-        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());	
         }
         
         instanceId = instance.getInstanceId();
@@ -59,20 +61,41 @@ public class StartInstances {
 	}
 	
 	@Test
-	public void testStartInstances(){
-		int statusCodeReturn = 200;
+	public void testCreateImage(){
+		int statusCode = 200;
 		
 		try{
-			StartInstancesRequest startInstReq = new StartInstancesRequest(instancesIds);
-			ec2.startInstances(startInstReq);
+			CreateImageRequest imgReq = new CreateImageRequest(instanceId,imgId);
+			amiId = ec2.createImage(imgReq).getImageId();
 		}catch(AmazonServiceException ase){
 			System.out.println("Caught Exception: " + ase.getMessage());
             System.out.println("Reponse Status Code: " + ase.getStatusCode());
             System.out.println("Error Code: " + ase.getErrorCode());
             System.out.println("Request ID: " + ase.getRequestId());
-			statusCodeReturn = ase.getStatusCode();
+			statusCode = ase.getStatusCode();
 		}
 		
-		Assert.assertEquals("Compativel", true,(statusCodeReturn == 200));	
+		Assert.assertEquals("Compativel", true,
+				(statusCode == 200));
+	}
+	
+	@Test
+	public void testDeregisterImage(){
+		int statusCode = 200;
+		
+		try{
+			DeregisterImageRequest derImgReq = new DeregisterImageRequest(amiId);
+			ec2.deregisterImage(derImgReq);
+			
+		}catch(AmazonServiceException ase){
+			System.out.println("Caught Exception: " + ase.getMessage());
+            System.out.println("Reponse Status Code: " + ase.getStatusCode());
+            System.out.println("Error Code: " + ase.getErrorCode());
+            System.out.println("Request ID: " + ase.getRequestId());
+			statusCode = ase.getStatusCode();
+		}
+		
+		Assert.assertEquals("Compativel", true,
+				(statusCode == 200));
 	}
 }
