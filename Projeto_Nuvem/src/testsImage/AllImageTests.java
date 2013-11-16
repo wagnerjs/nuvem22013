@@ -1,3 +1,4 @@
+package testsImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
-public class TestImageMethods{
+public class AllImageTests{
 	public static AmazonEC2 ec2;
 	public static String imgId;
 	public static String instanceId;
