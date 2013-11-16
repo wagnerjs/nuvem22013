@@ -11,7 +11,7 @@
         <pathelement path="${bin}"/>
     </path>
 
-    <target name="init">
+    <target name="init" depends="clean">
         <tstamp/>
         <mkdir dir="${bin}"/>
     </target>
