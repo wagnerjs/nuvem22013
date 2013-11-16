@@ -20,7 +20,8 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Descreve somente 1 atributo da Imagem
+ * Describe only one attribute of an specific image
+ * 
  * @author itallorossi
  *
  */

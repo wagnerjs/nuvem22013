@@ -18,7 +18,8 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Criar e remove registro de uma Imagem
+ * Create an image and in sequence "deregister" it
+ * 
  * @author itallorossi
  *
  */
@@ -86,7 +87,6 @@ public class DeregisterImage {
 		try{
 			DeregisterImageRequest derImgReq = new DeregisterImageRequest(amiId);
 			ec2.deregisterImage(derImgReq);
-			
 		}catch(AmazonServiceException ase){
 			System.out.println("Caught Exception: " + ase.getMessage());
             System.out.println("Reponse Status Code: " + ase.getStatusCode());

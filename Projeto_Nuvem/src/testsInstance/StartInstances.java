@@ -17,7 +17,9 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
 
 /**
- * Funcao para Iniciar todas as instancias, instancias devem estar paradas
+ * Class that start all instances that are stopped
+ * Instances that are terminated can't be started
+ * 
  * @author itallorossi
  *
  */
@@ -51,7 +53,9 @@ public class StartInstances {
         Instance instance = reserv.getInstances().get(0);
 
         for(Reservation reservation : reservations){
-        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	if(!reservation.getInstances().get(0).getState().getName().equals("terminated")){
+        		instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	}
         }
         
         instanceId = instance.getInstanceId();

@@ -17,12 +17,19 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Todas as funcoes rodam sem problema, sao funcoes de descricao
+ * Class that contains the description functions, such as:
+ * DescribeInstanceAttribute
+ * DescribeInstances
+ * DescribeInstanceStatus
+ * DescribeReservedInstances
+ * DescribeReservedInstancesOfferings
+ * SpotInstanceRequests
+ * 
  * @author itallorossi
  *
  */
 
-public class DescriptionInstance {
+public class DescriptionInstances {
 	public static AmazonEC2 ec2;
 	public static String imgId;
 	public static String instanceId;

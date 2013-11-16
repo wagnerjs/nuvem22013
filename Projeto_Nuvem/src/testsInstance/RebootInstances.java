@@ -51,7 +51,9 @@ public class RebootInstances {
         Instance instance = reserv.getInstances().get(0);
 
         for(Reservation reservation : reservations){
-        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	if(reservation.getInstances().get(0).getState().getName().equals("running")){
+        		instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	}
         }
         
         instanceId = instance.getInstanceId();

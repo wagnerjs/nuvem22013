@@ -17,7 +17,9 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 
 /**
- * Funcao parar todas as Instancias, nao funciona se 1 das instancias ja estiver parada
+ * Class that stops all instances
+ * Only running instances can be stopped
+ *  
  * @author itallorossi
  *
  */
@@ -51,7 +53,9 @@ public class StopInstances {
         Instance instance = reserv.getInstances().get(0);
 
         for(Reservation reservation : reservations){
-        	instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	if(reservation.getInstances().get(0).getState().getName().equals("running")){
+        		instancesIds.add(reservation.getInstances().get(0).getInstanceId());
+        	}
         }
         
         instanceId = instance.getInstanceId();
@@ -62,15 +66,20 @@ public class StopInstances {
 	public void testStopInstances(){
 		int statusCodeReturn = 200;
 		
-		try{
-			StopInstancesRequest stopInstReq = new StopInstancesRequest(instancesIds);
-			ec2.stopInstances(stopInstReq);
-		}catch(AmazonServiceException ase){
-			System.out.println("Caught Exception: " + ase.getMessage());
-            System.out.println("Reponse Status Code: " + ase.getStatusCode());
-            System.out.println("Error Code: " + ase.getErrorCode());
-            System.out.println("Request ID: " + ase.getRequestId());
-			statusCodeReturn = ase.getStatusCode();
+		if(instancesIds.size()>0){
+			try{
+				StopInstancesRequest stopInstReq = new StopInstancesRequest(instancesIds);
+				ec2.stopInstances(stopInstReq);
+			}catch(AmazonServiceException ase){
+				System.out.println("Caught Exception: " + ase.getMessage());
+	            System.out.println("Reponse Status Code: " + ase.getStatusCode());
+	            System.out.println("Error Code: " + ase.getErrorCode());
+	            System.out.println("Request ID: " + ase.getRequestId());
+				statusCodeReturn = ase.getStatusCode();
+			}
+		}else{
+			statusCodeReturn = 0;
+			System.out.println("No INSTANCE running to be stopped!");
 		}
 		
 		Assert.assertEquals("Compativel", true,(statusCodeReturn == 200));	

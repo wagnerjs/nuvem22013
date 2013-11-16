@@ -16,7 +16,8 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Descreve todas as imagens
+ * Describe all images and its attributes
+ * 
  * @author itallorossi
  *
  */
