@@ -17,7 +17,7 @@ import com.amazonaws.services.ec2.model.RebootInstancesRequest;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Reeinicia todas as inst‰ncias, mas d‡ problemas se elas estiverem paradas
+ * Reeinicia todas as instancias, mas da problemas se elas estiverem paradas
  * @author itallorossi
  *
  */

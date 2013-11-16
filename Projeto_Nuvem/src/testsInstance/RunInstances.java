@@ -17,7 +17,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 
 /**
- * Cria uma nova inst‰ncia cada vez que Ž executado
+ * Cria uma nova instancia cada vez que e executado
  * @author itallorossi
  *
  */

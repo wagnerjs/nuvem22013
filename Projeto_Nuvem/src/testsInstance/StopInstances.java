@@ -17,7 +17,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 
 /**
- * Função parar todas as Instâncias, não funciona se 1 das instâncias já estiver parada
+ * Funcao parar todas as Instancias, nao funciona se 1 das instancias ja estiver parada
  * @author itallorossi
  *
  */

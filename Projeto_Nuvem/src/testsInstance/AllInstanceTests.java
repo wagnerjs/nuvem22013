@@ -64,14 +64,14 @@ public class AllInstanceTests{
 	}
 	
 	/**
-	 * Gerência de Ciclo de Vida das Instâncias:
+	 * Gerencia de Ciclo de Vida das Instancias:
 	 * MonitorInstances - OK
 	 * RebootInstances - OK
-	 * RequestSpotInstances - Não implementado, pois pode gerar problemas de cobrança
+	 * RequestSpotInstances - Nao implementado, pois pode gerar problemas de cobranca
 	 * RunInstances - OK
 	 * StartInstances - OK
 	 * StopInstances - OK
-	 * TerminateInstances - Não Implementado, pois termina instâncias para sempre
+	 * TerminateInstances - Nao Implementado, pois termina instancias para sempre
 	 * UnmonitorInstances - OK
 	 * DescribeInstanceAttribute - OK
 	 * DescribeInstances - OK

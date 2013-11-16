@@ -17,7 +17,7 @@ import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
 
 /**
- * Função para Iniciar todas as instâncias, instâncias devem estar paradas
+ * Funcao para Iniciar todas as instancias, instancias devem estar paradas
  * @author itallorossi
  *
  */

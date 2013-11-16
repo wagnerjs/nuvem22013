@@ -1,0 +1,39 @@
+<project name="Nuvem22013" basedir="." default="compile">
+
+    <property name="src" location="src"/>
+    <property name="bin" location="bin"/>
+    <property name="dist"  location="dist"/>
+
+    <path id="classpath">
+        <fileset dir="libs">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${bin}"/>
+    </path>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="compile" depends="init"
+        description="compile the source " >
+        <javac destdir="${bin}" encoding="UTF-8">
+            <src path="${src}"/>
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile"
+        description="generate the distribution" >
+        <mkdir dir="${dist}/lib"/>
+        <jar jarfile="${dist}/lib/Nuvem22013-${DSTAMP}.jar" basedir="${bin}"/>
+    </target>
+
+    <target name="clean"
+        description="clean up" >
+        <delete dir="${bin}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+</project>

@@ -59,11 +59,11 @@ public class AllImageTests{
 	}
 	
 	/**
-	 * Gerência de Imagens:
+	 * Gerencia de Imagens:
 	 * CreateImage - OK
 	 * DeregisterImage - OK
-	 * ModifyImageAttribute - Não implementado
-	 * ResetImageAttribute - Não implementado
+	 * ModifyImageAttribute - Nao implementado
+	 * ResetImageAttribute - Nao implementado
 	 * DescribeImageAttribute - OK
 	 * DescribeImages - OK
 	 */

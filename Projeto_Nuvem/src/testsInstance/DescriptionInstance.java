@@ -17,7 +17,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
 
 /**
- * Todas as funções rodam sem problema, são funções de descrição
+ * Todas as funcoes rodam sem problema, sao funcoes de descricao
  * @author itallorossi
  *
  */
